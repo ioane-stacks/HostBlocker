@@ -155,7 +155,6 @@ namespace HostBlocker
                     }
                     if (command == "cleartext" || command == "Cleartext")
                     {
-                        OpenFileId = 0;
                         ClearText();
                         spRecEngine.RequestRecognizerUpdate();
                     }
@@ -168,7 +167,6 @@ namespace HostBlocker
                     if (command == "save" || command == "Save")
                     {
                         Save();
-                        OpenFileId = 0;
                         spRecEngine.RequestRecognizerUpdate();
                     }
                     if (command == "exit" || command == "Exit")
@@ -263,8 +261,8 @@ namespace HostBlocker
             }
             else
             {
-                label2.Text = "ტექსტური უჯრა არ არის ცარიელი, გთხოვთ დარწმუნდით რომ ლინკების ბლოკირება " +
-                    "განხორციელებულია, host ფაილის გასახსნელად საჭიროა ტექსტური ფანჯრის გასუფთავება თქვენიდან მოხდეს.";
+                onError("ტექსტური უჯრა არ არის ცარიელი, გთხოვთ დარწმუნდით რომ ლინკების ბლოკირება " +
+                    "განხორციელებულია, host ფაილის გასახსნელად საჭიროა ტექსტური ფანჯრის გასუფთავება თქვენიდან მოხდეს.");
             }
             spRecEngine.RequestRecognizerUpdate();
         }
@@ -394,6 +392,17 @@ namespace HostBlocker
             cr.Cursor = Cursors.Hand;
         } 
 
+        //MESSAGES
+        private void onGuid(string message)
+        {
+            label2.ForeColor = Color.White;
+            label2.Text = message;
+        }
+        private void onError(string message) {
+            label2.ForeColor = Color.FromArgb(255, 160, 0, 40);
+            label2.Text = message;
+        }
+
         //Start
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -414,12 +423,13 @@ namespace HostBlocker
         #region richtextbox
         private void richTextBox1_MouseHover(object sender, EventArgs e)
         {
-            label2.Text = "ტექსტური ფანჯრის გამოყენება შეგიძლიათ ჰოსტების დასაბლოკად, " +
+            string message = "ტექსტური ფანჯრის გამოყენება შეგიძლიათ ჰოსტების დასაბლოკად, " +
                 "თუ გსურთ ერთი ან რამდენიმე ჰოსტის დაბლოკვა, ტექსტურ ფანჯარაში ჩაწერეთ \n" +
                 "მაგ: http://www.example.com \n" +
                 "ან: http://example.com \n" +
                 "ასევე შესაძლებელია ტექსტური ფანჯრიდან Host ფაილის რედაქტირება სადაც განთავსებულია " +
                 "აწ. დაბლოკილი ლინკები, ფაილზე ორიენტირებისთვის დააკლიკეთ OPEN ღილაკს.";
+            onGuid(message);
         }
 
         private void richTextBox1_MouseLeave(object sender, EventArgs e)
@@ -526,8 +536,9 @@ namespace HostBlocker
         private void pictureBox11_MouseHover(object sender, EventArgs e)
         {
             pictureBox11.Image = new Bitmap(HostBlocker.Properties.Resources.BlockUrlBtnHover);
-            label2.Text = "თუ უკვე შეყვანილი გყავთ ტექსტურ ფანჯარაში ლინკი/ები, BLOCK ღილაკის დაჭერით " +
+            string message = "თუ უკვე შეყვანილი გყავთ ტექსტურ ფანჯარაში ლინკი/ები, BLOCK ღილაკის დაჭერით " +
                 "შეძლებთ ამავე ლინკების დაბლოკვას.";
+            onGuid(message);
         }
 
         private void pictureBox11_MouseLeave(object sender, EventArgs e)
@@ -547,7 +558,8 @@ namespace HostBlocker
         private void pictureBox12_MouseHover(object sender, EventArgs e)
         {
             pictureBox12.Image = new Bitmap(HostBlocker.Properties.Resources.ClearBtnHover);
-            label2.Text = "CLEAR ღილაკი გაგისუფთავებთ ტექსტურ ფანჯარაში ჩაწერილ ტექსტს.";
+            string message = "CLEAR ღილაკი გაგისუფთავებთ ტექსტურ ფანჯარაში ჩაწერილ ტექსტს.";
+            onGuid(message);
         }
 
         private void pictureBox12_MouseLeave(object sender, EventArgs e)
@@ -568,10 +580,11 @@ namespace HostBlocker
         private void pictureBox13_MouseHover(object sender, EventArgs e)
         {
             pictureBox13.Image = new Bitmap(HostBlocker.Properties.Resources.OpenFileBtnHover);
-            label2.Text = "OPEN ღილაკის დაკლიკვის შედეგად ტექსტურ უჯრაში გამოჩნდება host.txt ფაილში მოთავსებული " +
+            string message = "OPEN ღილაკის დაკლიკვის შედეგად ტექსტურ უჯრაში გამოჩნდება host.txt ფაილში მოთავსებული " +
                 "ტექსტი, სადაც მითითებულია ის ლინკები რომელთა დაბლოკვაც სასურველია, host ფაილი მდებარეობს\n" +
                 $@"{Path.GetPathRoot(Environment.CurrentDirectory)}Windows\System32\Drivers\etc\ დირექტორიაში, " +
                 "თქვენ მოგეცემათ საშუალება დაარედაქტიროთ host ფაილი";
+            onGuid(message);
         }
 
         private void pictureBox13_MouseLeave(object sender, EventArgs e)
@@ -591,8 +604,9 @@ namespace HostBlocker
         private void pictureBox14_MouseHover(object sender, EventArgs e)
         {
             pictureBox14.Image = new Bitmap(HostBlocker.Properties.Resources.SaveFileBtnHover);
-            label2.Text = "მას შემდეგ რაც დაარედაქტირებთ host ფაილს, SAVE ღილაკის დაკლიკვით მოხდება ცვლილებების განახლება " +
+            string message = "მას შემდეგ რაც დაარედაქტირებთ host ფაილს, SAVE ღილაკის დაკლიკვით მოხდება ცვლილებების განახლება " +
                 "და შენახვა.";
+            onGuid(message);
         }
 
         private void pictureBox14_MouseLeave(object sender, EventArgs e)
