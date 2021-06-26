@@ -260,6 +260,8 @@ namespace HostBlocker
             {
                 richTextBox1.Lines = File.ReadAllLines(fname);
                 temp2 = richTextBox1.Lines;
+                richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                richTextBox1.ScrollToCaret();
             }
             else
             {
@@ -269,6 +271,12 @@ namespace HostBlocker
             }
             spRecEngine.RequestRecognizerUpdate();
         }
+
+        private void RichTextBox1_VScroll(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ClearText()
         {
             richTextBox1.Clear();
