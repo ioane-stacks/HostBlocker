@@ -249,9 +249,10 @@ namespace HostBlocker
                         onChanges("საიტები დაიბლოკა წარმატებით", Color.FromArgb(255, 0, 160, 40));
                     }
                     temp = File.ReadAllLines(fname);
+                    temp2 = richTextBox1.Lines;
                 }
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         public void OpenFile()
         {
@@ -274,9 +275,13 @@ namespace HostBlocker
         }
         public void Save()
         {
-            if (string.IsNullOrEmpty(richTextBox1.Text) || temp2.Length != temp.Length)
+            if (string.IsNullOrEmpty(richTextBox1.Text))
             {
-                onChanges("გთხოვთ შეიყვანოთ მისამართი", default);
+                onChanges("ტექსტური ველი არ შეიძლება იყოს ცარიელი", default);
+            }
+            else if (temp2 == null || temp2.Length != temp.Length)
+            {
+                onChanges("გთხოვთ დარწმუნდეთ რომ გახსნილი გაქვთ host ფაილი", default);
             }
             else
             {
