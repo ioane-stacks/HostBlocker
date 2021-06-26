@@ -225,7 +225,7 @@ namespace HostBlocker
             {
                 if (string.IsNullOrEmpty(richTextBox1.Text))
                 {
-                    MessageBox.Show("გთხოვთ შეიყვანოთ მისამართი");
+                    onChanges("გთხოვთ შეიყვანოთ მისამართი", default);
                 }
                 else
                 {
@@ -244,7 +244,7 @@ namespace HostBlocker
                                 sw.WriteLine("127.0.0.1" + "    " + richTextBox1.Lines[i]);
                             }
                         }
-                        MessageBox.Show("საიტები დაიბლოკა წარმატებით");
+                        onChanges("საიტები დაიბლოკა წარმატებით", Color.FromArgb(255, 0, 160, 40));
                     }
                 }
             }
@@ -261,8 +261,9 @@ namespace HostBlocker
             }
             else
             {
-                onError("ტექსტური უჯრა არ არის ცარიელი, გთხოვთ დარწმუნდით რომ ლინკების ბლოკირება " +
-                    "განხორციელებულია, host ფაილის გასახსნელად საჭიროა ტექსტური ფანჯრის გასუფთავება თქვენიდან მოხდეს.");
+                string message = "ტექსტური უჯრა არ არის ცარიელი, გთხოვთ დარწმუნდით რომ ლინკების ბლოკირება " +
+                    "განხორციელებულია, host ფაილის გასახსნელად საჭიროა ტექსტური ფანჯრის გასუფთავება თქვენიდან მოხდეს.";
+                onChanges(message, default);
             }
             spRecEngine.RequestRecognizerUpdate();
         }
@@ -398,8 +399,9 @@ namespace HostBlocker
             label2.ForeColor = Color.White;
             label2.Text = message;
         }
-        private void onError(string message) {
-            label2.ForeColor = Color.FromArgb(255, 160, 0, 40);
+        private void onChanges(string message, Color? c) {
+            if(c == null) c = Color.FromArgb(255, 160, 0, 40);
+            label2.ForeColor = c.Value;
             label2.Text = message;
         }
 
