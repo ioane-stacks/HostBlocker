@@ -119,7 +119,7 @@ namespace HostBlocker
                         {
                             label1.Text = "●";
                             if (stream == null) Environment.Exit(0);
-                            label1.ForeColor = Color.FromArgb(255, 0, 160, 40);
+                            label1.ForeColor = Color.FromArgb(0, 160, 40);
                             Bot_Return("Awake!");
                             WakeId = 1;
                         }
@@ -200,7 +200,7 @@ namespace HostBlocker
                     if (SleepId == 0)
                     {
                         label1.Text = "●";
-                        label1.ForeColor = Color.FromArgb(255, 160, 0, 40);
+                        label1.ForeColor = Color.FromArgb(160, 0, 40);
                         Bot_Return("Okay!");
                         wake = false;
                     }
@@ -246,7 +246,7 @@ namespace HostBlocker
                                 sw.WriteLine("127.0.0.1" + "    " + richTextBox1.Lines[i]);
                             }
                         }
-                        onChanges("საიტები დაიბლოკა წარმატებით", Color.FromArgb(255, 0, 160, 40));
+                        onChanges("საიტები დაიბლოკა წარმატებით", Color.FromArgb(0, 160, 40));
                     }
                     temp = File.ReadAllLines(fname);
                     temp2 = richTextBox1.Lines;
@@ -289,7 +289,7 @@ namespace HostBlocker
                 {
                     File.WriteAllLines(fname, richTextBox1.Lines);
 
-                    onChanges("შენახულია წარმატებით", Color.FromArgb(255, 0, 160, 40));
+                    onChanges("შენახულია წარმატებით", Color.FromArgb(0, 160, 40));
 
                     temp = File.ReadAllLines(fname);
                     temp2 = richTextBox1.Lines;
@@ -405,7 +405,7 @@ namespace HostBlocker
         }
         private void onChanges(string message, Color? c)
         {
-            if (c == null) c = Color.FromArgb(255, 160, 0, 40);
+            if (c == null) c = Color.FromArgb(160, 0, 40);
             label2.ForeColor = c.Value;
             label2.Text = message;
         }
