@@ -34,6 +34,11 @@ namespace HostBlocker
         int SleepId = 1;
         Boolean wake = false;
 
+        string fname = Path.GetPathRoot(Environment.SystemDirectory) + @"\windows\system32\drivers\etc\hosts";
+        string[] temp;
+        string[] temp2;
+
+
         //SPEECH RECOGNITION
         public void Speaker()
         {
@@ -215,9 +220,6 @@ namespace HostBlocker
 
         }
 
-        string fname = Path.GetPathRoot(Environment.SystemDirectory) + @"\windows\system32\drivers\etc\hosts";
-
-
         //ACTIONS
         public void Block()
         {
@@ -258,6 +260,7 @@ namespace HostBlocker
             if (string.IsNullOrEmpty(richTextBox1.Text))
             {
                 richTextBox1.Lines = File.ReadAllLines(fname);
+                temp2 = richTextBox1.Lines;
             }
             else
             {
@@ -273,24 +276,22 @@ namespace HostBlocker
         }
         public void Save()
         {
-            if (string.IsNullOrEmpty(richTextBox1.Text))
+            if (string.IsNullOrEmpty(richTextBox1.Text) || temp2.Length != temp.Length)
             {
-                MessageBox.Show("გთხოვთ შეიყვანოთ მისამართი");
+                onChanges("გთხოვთ შეიყვანოთ მისამართი", default);
             }
             else
             {
                 try
                 {
-                    for (int i = 0; i < richTextBox1.Lines.Length; i++)
-                    {
-                        File.WriteAllLines(fname, richTextBox1.Lines);
-                    }
-                    MessageBox.Show("შენახულია წარმატებით");
+                    File.WriteAllLines(fname, richTextBox1.Lines);
+
+                    onChanges("შენახულია წარმატებით", Color.FromArgb(255, 0, 160, 40));
+
+                    temp = File.ReadAllLines(fname);
+                    temp2 = richTextBox1.Lines;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                catch { }
             }
         }
 
@@ -377,12 +378,12 @@ namespace HostBlocker
                     cr.Click += new EventHandler(cr_Click);
                     cr.MouseHover += new EventHandler(cr_MouseHover);
                 }
-            } 
+            }
             catch
             {
 
             }
-            
+
         }
         private void cr_Click(object sender, EventArgs e)
         {
@@ -391,7 +392,7 @@ namespace HostBlocker
         private void cr_MouseHover(object sender, EventArgs e)
         {
             cr.Cursor = Cursors.Hand;
-        } 
+        }
 
         //MESSAGES
         private void onGuid(string message)
@@ -399,8 +400,9 @@ namespace HostBlocker
             label2.ForeColor = Color.White;
             label2.Text = message;
         }
-        private void onChanges(string message, Color? c) {
-            if(c == null) c = Color.FromArgb(255, 160, 0, 40);
+        private void onChanges(string message, Color? c)
+        {
+            if (c == null) c = Color.FromArgb(255, 160, 0, 40);
             label2.ForeColor = c.Value;
             label2.Text = message;
         }
@@ -408,6 +410,7 @@ namespace HostBlocker
         //Start
         private void Form1_Load(object sender, EventArgs e)
         {
+            temp = File.ReadAllLines(fname);
             label2.MaximumSize = new System.Drawing.Size(pictureBox7.Width - 5, default);
             CR();
         }
@@ -427,8 +430,8 @@ namespace HostBlocker
         {
             string message = "ტექსტური ფანჯრის გამოყენება შეგიძლიათ ჰოსტების დასაბლოკად, " +
                 "თუ გსურთ ერთი ან რამდენიმე ჰოსტის დაბლოკვა, ტექსტურ ფანჯარაში ჩაწერეთ \n" +
-                "მაგ: http://www.example.com \n" +
-                "ან: http://example.com \n" +
+                "მაგ: www.example.com \n" +
+                "ან: example.com \n" +
                 "ასევე შესაძლებელია ტექსტური ფანჯრიდან Host ფაილის რედაქტირება სადაც განთავსებულია " +
                 "აწ. დაბლოკილი ლინკები, ფაილზე ორიენტირებისთვის დააკლიკეთ OPEN ღილაკს.";
             onGuid(message);
