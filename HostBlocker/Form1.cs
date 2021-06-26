@@ -32,10 +32,9 @@ namespace HostBlocker
         int GreetingId = 0;
         int WakeId = 0;
         int SleepId = 1;
-        int OpenFileId = 0;
         Boolean wake = false;
 
-
+        //SPEECH RECOGNITION
         public void Speaker()
         {
             list.Add(new String[] {
@@ -152,20 +151,7 @@ namespace HostBlocker
                     }
                     if (command == "open file" || command == "Open File")
                     {
-                        if (string.IsNullOrEmpty(richTextBox1.Text))
-                        {
-                            if (OpenFileId == 0)
-                            {
-                                OpenFile();
-                                OpenFileId = 1;
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("ტექსტური უჯრა არ არის ცარიელი, გთხოვთ დარწმუნდით რომ ლინკების ბლოკირება " +
-                                "განხორციელებულია, host ფაილის გასახსნელად საჭიროა ტექსტური ფანჯრის გასუფთავება თქვენიდან მოხდეს.");
-                        }
-                        spRecEngine.RequestRecognizerUpdate();
+                        OpenFile();
                     }
                     if (command == "cleartext" || command == "Cleartext")
                     {
@@ -233,6 +219,8 @@ namespace HostBlocker
 
         string fname = Path.GetPathRoot(Environment.SystemDirectory) + @"\windows\system32\drivers\etc\hosts";
 
+
+        //ACTIONS
         public void Block()
         {
             try
@@ -269,7 +257,16 @@ namespace HostBlocker
         }
         public void OpenFile()
         {
-            richTextBox1.Lines = File.ReadAllLines(fname);
+            if (string.IsNullOrEmpty(richTextBox1.Text))
+            {
+                richTextBox1.Lines = File.ReadAllLines(fname);
+            }
+            else
+            {
+                label2.Text = "ტექსტური უჯრა არ არის ცარიელი, გთხოვთ დარწმუნდით რომ ლინკების ბლოკირება " +
+                    "განხორციელებულია, host ფაილის გასახსნელად საჭიროა ტექსტური ფანჯრის გასუფთავება თქვენიდან მოხდეს.";
+            }
+            spRecEngine.RequestRecognizerUpdate();
         }
         public void ClearText()
         {
@@ -298,6 +295,7 @@ namespace HostBlocker
             }
         }
 
+        //MAIN CONSTRUCTOR
         public Form1()
         {
             Speaker();
@@ -362,8 +360,7 @@ namespace HostBlocker
 
         }
 
-        
-
+        //Author
         public void CR()
         {
             try
@@ -397,6 +394,7 @@ namespace HostBlocker
             cr.Cursor = Cursors.Hand;
         } 
 
+        //Start
         private void Form1_Load(object sender, EventArgs e)
         {
             label2.MaximumSize = new System.Drawing.Size(pictureBox7.Width - 5, default);
@@ -608,6 +606,7 @@ namespace HostBlocker
             Save();
         }
         #endregion
+
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
