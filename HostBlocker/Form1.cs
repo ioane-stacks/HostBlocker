@@ -248,12 +248,10 @@ namespace HostBlocker
                         }
                         onChanges("საიტები დაიბლოკა წარმატებით", Color.FromArgb(255, 0, 160, 40));
                     }
+                    temp = File.ReadAllLines(fname);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
         public void OpenFile()
         {
