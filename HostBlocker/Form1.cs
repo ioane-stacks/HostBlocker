@@ -289,7 +289,7 @@ namespace HostBlocker
                 {
                     File.WriteAllLines(fname, richTextBox1.Lines);
 
-                    onChanges("შენახულია წარმატებით", Color.FromArgb(0, 160, 80));
+                    onChanges("ცვლილება განხორციელდა წარმატებით", Color.FromArgb(0, 160, 80));
 
                     temp = File.ReadAllLines(fname);
                     temp2 = richTextBox1.Lines;
