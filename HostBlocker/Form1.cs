@@ -121,7 +121,7 @@ namespace HostBlocker
                         }
                         else if (WakeId == 1)
                         {
-                            Bot_Return("I am ready.");
+                            Bot_Return("I am ready");
                         }
                     }
 
