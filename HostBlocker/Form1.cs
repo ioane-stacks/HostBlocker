@@ -246,7 +246,7 @@ namespace HostBlocker
                                 sw.WriteLine("127.0.0.1" + "    " + richTextBox1.Lines[i]);
                             }
                         }
-                        onChanges("საიტები დაიბლოკა წარმატებით", Color.FromArgb(0, 160, 40));
+                        onChanges("საიტები დაიბლოკა წარმატებით", Color.FromArgb(0, 160, 80));
                     }
                     temp = File.ReadAllLines(fname);
                     temp2 = richTextBox1.Lines;
@@ -289,7 +289,7 @@ namespace HostBlocker
                 {
                     File.WriteAllLines(fname, richTextBox1.Lines);
 
-                    onChanges("შენახულია წარმატებით", Color.FromArgb(0, 160, 40));
+                    onChanges("შენახულია წარმატებით", Color.FromArgb(0, 160, 80));
 
                     temp = File.ReadAllLines(fname);
                     temp2 = richTextBox1.Lines;
