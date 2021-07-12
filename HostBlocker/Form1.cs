@@ -17,6 +17,7 @@ namespace HostBlocker
     public partial class Form1 : Form
     {
         public Label cr;
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
