@@ -18,6 +18,7 @@ namespace HostBlocker
     {
         public Label cr;
 
+        //MOVABLE PLATFORM
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -25,6 +26,7 @@ namespace HostBlocker
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
+        // END
 
         SpeechSynthesizer speech = new SpeechSynthesizer();
         SpeechRecognitionEngine spRecEngine = new SpeechRecognitionEngine();
@@ -399,7 +401,7 @@ namespace HostBlocker
         }
         private void cr_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.facebook.com/IoaneStacks/");
+            System.Diagnostics.Process.Start("https://www.facebook.com/Ioane0719/");
         }
         private void cr_MouseHover(object sender, EventArgs e)
         {
